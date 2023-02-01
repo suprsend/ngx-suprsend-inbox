@@ -3,5 +3,37 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "ngx-inbox": {
+      "projectType": "library",
+      "root": "projects/ngx-inbox",
+      "sourceRoot": "projects/ngx-inbox/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-inbox/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-inbox/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-inbox/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-inbox/src/test.ts",
+            "tsConfig": "projects/ngx-inbox/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-inbox/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-inbox"
 }

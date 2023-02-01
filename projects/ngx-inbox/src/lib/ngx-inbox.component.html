@@ -1,0 +1,118 @@
+<div class="ss-container">
+  <div
+    class="ss-badge-container"
+    (click)="markAllSeen()"
+    id="button"
+    #toggleButton
+  >
+    <span [noContent]="defaultBadge">
+      <ng-container
+        *ngTemplateOutlet="badgeRef; context: { $implicit: unseenCount }"
+      >
+      </ng-container>
+      <ng-template #defaultBadge
+        ><span *ngIf="unseenCount" class="ss-text ss-badge">{{
+          unseenCount
+        }}</span></ng-template
+      >
+    </span>
+
+    <span [noContent]="defaultBell">
+      <ng-content select="[ssBell]"></ng-content>
+      <ng-template #defaultBell>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="ss-bell"
+          fill="none"
+          view-box="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+          />
+        </svg>
+      </ng-template>
+    </span>
+  </div>
+
+  <div id="tooltip" role="tooltip" #popperMenu>
+    <div id="arrow" data-popper-arrow></div>
+    <div class="ss-popper-container">
+      <div class="ss-popper-header-container">
+        <p class="ss-text ss-popper-header-text">Notifications</p>
+      </div>
+      <ng-container *ngIf="notifications.length > 0">
+        <span
+          *ngFor="let notification of notifications"
+          [noContent]="defaultNotification"
+          (click)="handleNotificationClick($event, notification)"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              notificationRef;
+              context: { $implicit: notification }
+            "
+          >
+          </ng-container>
+
+          <ng-template #defaultNotification>
+            <div
+              class="ss-notification-container"
+              (click)="handleNotificationClick($event, notification)"
+            >
+              <div class="ss-notification-view">
+                <div>
+                  <p class="ss-text ss-notification-header-text">
+                    {{ notification.message.header }}
+                  </p>
+                  <p class="ss-text ss-notification-body-text">
+                    {{ notification.message.text }}
+                  </p>
+                </div>
+                <div>
+                  <div
+                    class="ss-notification-unseendot"
+                    *ngIf="!notification.seen_on"
+                  ></div>
+                </div>
+              </div>
+              <div class="ss-notification-buttons-container">
+                <div
+                  class="ss-action-primary"
+                  *ngIf="notification?.message?.actions?.[0]"
+                  (click)="handleActionClick($event,notification.n_id,notification?.message?.actions?.[0])"
+                >
+                  <p class="ss-text ss-action-primary-text">
+                    {{notification?.message?.actions?.[0].name}}
+                  </p>
+                </div>
+                <div
+                  class="ss-action-outline"
+                  *ngIf="notification?.message?.actions?.[1]"
+                  (click)="handleActionClick($event,notification.n_id,notification?.message?.actions?.[1])"
+                >
+                  <p class="ss-text ss-action-outline-text">
+                    {{notification?.message?.actions?.[1].name}}
+                  </p>
+                </div>
+              </div>
+              <p class="ss-text ss-notification-created-text">
+                {{ notification.created_on | timeAgo }}
+              </p>
+            </div>
+          </ng-template>
+        </span>
+      </ng-container>
+
+      <span *ngIf="notifications.length === 0" [noContent]="defaultEmptyState">
+        <ng-content select="[ss-empty-content]"></ng-content>
+        <ng-template #defaultEmptyState>
+          <p class="ss-text ss-no-notifications-text">No Notifications</p>
+        </ng-template>
+      </span>
+    </div>
+  </div>
+</div>

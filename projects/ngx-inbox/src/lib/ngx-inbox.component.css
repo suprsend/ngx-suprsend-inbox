@@ -1,0 +1,26 @@
+.ss-badge-container {
+  position: relative;
+  margin-top: 12px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.ss-container {
+  position: relative;
+  display: inline-block;
+  background-color: transparent;
+}
+
+.ss-notification-view {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.ss-notification-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 5px;
+}
