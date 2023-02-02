@@ -1,4 +1,4 @@
-#tooltip {
+#ssPopperMenu {
   background: #333;
   color: white;
   font-weight: bold;
@@ -8,7 +8,7 @@
   display: none;
 }
 
-#tooltip[data-show] {
+#ssPopperMenu[data-show] {
   display: block;
 }
 
@@ -26,23 +26,23 @@
   background: #333;
 }
 
-#tooltip[data-popper-placement^="top"] > #arrow {
+#ssPopperMenu[data-popper-placement^="top"] > #arrow {
   bottom: -4px;
 }
 
-#tooltip[data-popper-placement^="bottom"] > #arrow {
+#ssPopperMenu[data-popper-placement^="bottom"] > #arrow {
   top: -4px;
 }
 
-#tooltip[data-popper-placement^="left"] > #arrow {
+#ssPopperMenu[data-popper-placement^="left"] > #arrow {
   right: -4px;
 }
 
-#tooltip[data-popper-placement^="right"] > #arrow {
+#ssPopperMenu[data-popper-placement^="right"] > #arrow {
   left: -4px;
 }
 
-#tooltip {
+#ssPopperMenu {
   background: white;
   color: black;
   font-weight: bold;
@@ -53,7 +53,7 @@
   box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#tooltip[data-show] {
+#ssPopperMenu[data-show] {
   display: block;
 }
 
@@ -73,19 +73,19 @@
   box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#tooltip[data-popper-placement^="top"] > #arrow {
+#ssPopperMenu[data-popper-placement^="top"] > #arrow {
   bottom: -4px;
 }
 
-#tooltip[data-popper-placement^="bottom"] > #arrow {
+#ssPopperMenu[data-popper-placement^="bottom"] > #arrow {
   top: -4px;
 }
 
-#tooltip[data-popper-placement^="left"] > #arrow {
+#ssPopperMenu[data-popper-placement^="left"] > #arrow {
   right: -4px;
 }
 
-#tooltip[data-popper-placement^="right"] > #arrow {
+#ssPopperMenu[data-popper-placement^="right"] > #arrow {
   left: -4px;
 }
 
@@ -225,4 +225,53 @@
   margin: 0px;
   color: #707070;
   font-weight: 400;
+}
+
+.toast-title {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0px;
+  color: #000;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.toast-message {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0px;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  word-wrap: break-word;
+  margin-top: 0px;
+}
+
+.toast-success {
+  background-color: white;
+  background-image: none;
+}
+
+.toast-container .ngx-toastr {
+  padding-left: 15px;
+  max-width: 450px;
+  min-width: 300px;
+  width: auto;
+}
+
+@media (max-width: 425px) {
+  .toast-message {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-top: 0px;
+  }
+  .toast-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-top: 0px;
+  }
 }

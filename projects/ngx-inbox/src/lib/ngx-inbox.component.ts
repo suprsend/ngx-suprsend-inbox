@@ -27,23 +27,23 @@ import { createPopper } from '@popperjs/core';
 export class SuprSendInboxComponent implements OnDestroy {
   unseenCount: number;
   notifications: IRemoteNotification[];
+  showPopper = false;
+  listener;
 
   @ContentChild('ssNotification') notificationRef: TemplateRef<any>;
   @ContentChild('ssBadge') badgeRef: TemplateRef<any>;
-
-  showPopper = false;
-  listener;
-  @ViewChild('toggleButton') toggleButton: ElementRef;
-  @ViewChild('popperMenu') popperMenu: ElementRef;
+  @ViewChild('ssToggleButton') ssToggleButton: ElementRef;
+  @ViewChild('ssPopperMenu') ssPopperMenu: ElementRef;
 
   // user defined inputs
   @Input() notificationClickHandler: (
     notification: IRemoteNotification
   ) => void;
-  // @Input() toastConfig: Partial<IndividualConfig>;
   @Input() hideToast: boolean = false;
   @Input() hideInbox: boolean = false;
   @Input() collapseToastNotifications: boolean;
+  @Input() toaster;
+  @Input() toasterConfig;
 
   constructor(
     private inboxServiceInstance: SuprSendInboxService,
@@ -62,23 +62,23 @@ export class SuprSendInboxComponent implements OnDestroy {
         'new_notification',
         (notifications: IRemoteNotification[]) => {
           if (notifications?.length) {
-            // const newToastConfig = this.modifyToastConfig();
+            const newToastConfig = this.modifyToastConfig();
             if (this.collapseToastNotifications && notifications.length > 1) {
               // multiple notifications collapse
-              // this.toastr.success(
-              //   `You have ${notifications.length} new notifications`,
-              //   '',
-              //   newToastConfig
-              // );
+              this.toaster.success(
+                `You have ${notifications.length} new notifications`,
+                '',
+                newToastConfig
+              );
             } else {
               notifications.forEach((notification: IRemoteNotification) => {
                 const message: IRemoteNotificationMessage =
                   notification.message;
-                // this.toastr.success(
-                //   message.text,
-                //   message.header,
-                //   newToastConfig
-                // );
+                this.toaster.success(
+                  message.text,
+                  message.header,
+                  newToastConfig
+                );
               });
             }
           }
@@ -88,8 +88,8 @@ export class SuprSendInboxComponent implements OnDestroy {
   }
 
   ngOnInit() {
-    const button = document.querySelector('#button');
-    const tooltip = document.querySelector<any>('#tooltip');
+    const button = document.querySelector('#ssToggleButton');
+    const tooltip = document.querySelector<any>('#ssPopperMenu');
 
     let popperInstance = null;
 
@@ -115,15 +115,15 @@ export class SuprSendInboxComponent implements OnDestroy {
 
     this.listener = this.renderer.listen('window', 'click', (e: Event) => {
       if (
-        !this.toggleButton.nativeElement.contains(e.target) &&
-        !this.popperMenu.nativeElement.contains(e.target)
+        !this.ssToggleButton.nativeElement.contains(e.target) &&
+        !this.ssPopperMenu.nativeElement.contains(e.target)
       ) {
         tooltip.removeAttribute('data-show');
         destroy();
         this.showPopper = false;
       }
 
-      if (this.toggleButton.nativeElement.contains(e.target)) {
+      if (this.ssToggleButton.nativeElement.contains(e.target)) {
         if (this.showPopper) {
           tooltip.removeAttribute('data-show');
           destroy();
@@ -136,13 +136,13 @@ export class SuprSendInboxComponent implements OnDestroy {
     });
   }
 
-  // modifyToastConfig() {
-  //   const isMobile = window.innerWidth > 425;
-  //   const position = isMobile
-  //     ? 'toast-bottom-right'
-  //     : 'toast-bottom-full-width';
-  //   return { positionClass: position, ...this.toastConfig };
-  // }
+  modifyToastConfig() {
+    const isMobile = window.innerWidth > 425;
+    const position = isMobile
+      ? 'toast-bottom-right'
+      : 'toast-bottom-full-width';
+    return { positionClass: position, ...this.toasterConfig };
+  }
 
   markAllSeen() {
     this.inboxServiceInstance.markAllSeen();

@@ -2,8 +2,8 @@
   <div
     class="ss-badge-container"
     (click)="markAllSeen()"
-    id="button"
-    #toggleButton
+    id="ssToggleButton"
+    #ssToggleButton
   >
     <span [noContent]="defaultBadge">
       <ng-container
@@ -38,7 +38,7 @@
     </span>
   </div>
 
-  <div id="tooltip" role="tooltip" #popperMenu>
+  <div id="ssPopperMenu" #ssPopperMenu>
     <div id="arrow" data-popper-arrow></div>
     <div class="ss-popper-container">
       <div class="ss-popper-header-container">
