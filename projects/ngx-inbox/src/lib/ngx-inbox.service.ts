@@ -36,6 +36,24 @@ export class SuprSendInboxService {
     return this.notificationSubject.asObservable();
   }
 
+  get actualNotificationData() {
+    return {
+      notifications: this._notificationData.notifications,
+      unseenCount: this._notificationData.unseenCount,
+    };
+  }
+
+  set notificationData(feed: any) {
+    this._notificationData = {
+      notifications: feed.notifications,
+      unseenCount: feed.unseenCount,
+    };
+  }
+
+  get suprsendEmitter() {
+    return this.ssInboxInstance.emitter;
+  }
+
   identifyUser(distinctId?: string, subscriberId?: string) {
     if (subscriberId != this.ssInboxInstance.subscriberId) {
       this.ssInboxInstance.resetUser();
@@ -57,19 +75,5 @@ export class SuprSendInboxService {
 
   async markClicked(id: string) {
     await this.ssInboxInstance.feed.markClicked(id);
-  }
-
-  get actualNotificationData() {
-    return {
-      notifications: this._notificationData.notifications,
-      unseenCount: this._notificationData.unseenCount,
-    };
-  }
-
-  set notificationData(feed: any) {
-    this._notificationData = {
-      notifications: feed.notifications,
-      unseenCount: feed.unseenCount,
-    };
   }
 }

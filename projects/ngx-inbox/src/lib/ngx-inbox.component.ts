@@ -36,14 +36,14 @@ export class SuprSendInboxComponent implements OnDestroy {
   @ViewChild('ssPopperMenu') ssPopperMenu: ElementRef;
 
   // user defined inputs
-  @Input() notificationClickHandler: (
-    notification: IRemoteNotification
-  ) => void;
   @Input() hideToast: boolean = false;
   @Input() hideInbox: boolean = false;
   @Input() collapseToastNotifications: boolean;
   @Input() toaster;
   @Input() toasterConfig;
+  @Input() notificationClickHandler: (
+    notification: IRemoteNotification
+  ) => void;
 
   constructor(
     private inboxServiceInstance: SuprSendInboxService,
@@ -61,7 +61,7 @@ export class SuprSendInboxComponent implements OnDestroy {
       this.inboxServiceInstance.ssInboxInstance.emitter.on(
         'new_notification',
         (notifications: IRemoteNotification[]) => {
-          if (notifications?.length) {
+          if (notifications?.length && this.toaster?.success) {
             const newToastConfig = this.modifyToastConfig();
             if (this.collapseToastNotifications && notifications.length > 1) {
               // multiple notifications collapse
@@ -88,10 +88,9 @@ export class SuprSendInboxComponent implements OnDestroy {
   }
 
   ngOnInit() {
+    let popperInstance = null;
     const button = document.querySelector('#ssToggleButton');
     const tooltip = document.querySelector<any>('#ssPopperMenu');
-
-    let popperInstance = null;
 
     function create() {
       popperInstance = createPopper(button, tooltip, {
@@ -114,6 +113,10 @@ export class SuprSendInboxComponent implements OnDestroy {
     }
 
     this.listener = this.renderer.listen('window', 'click', (e: Event) => {
+      e.stopPropagation();
+      // no need to attach listener if inbox is hidden
+      if (this.hideInbox) return;
+
       if (
         !this.ssToggleButton.nativeElement.contains(e.target) &&
         !this.ssPopperMenu.nativeElement.contains(e.target)
@@ -175,7 +178,7 @@ export class SuprSendInboxComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     if (this.listener) {
       this.listener();
     }
