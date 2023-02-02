@@ -1,4 +1,4 @@
-<div class="ss-container" *ngIf="!hideInbox">
+<div class="ss-container">
   <div
     class="ss-badge-container"
     (click)="markAllSeen()"
@@ -82,20 +82,38 @@
               <div class="ss-notification-buttons-container">
                 <div
                   class="ss-action-primary"
-                  *ngIf="notification?.message?.actions?.[0]"
-                  (click)="handleActionClick($event,notification.n_id,notification?.message?.actions?.[0])"
+                  *ngIf="
+                    notification.message.actions &&
+                    notification.message.actions[0]
+                  "
+                  (click)="
+                    handleActionClick(
+                      $event,
+                      notification.n_id,
+                      notification.message.actions[0]
+                    )
+                  "
                 >
                   <p class="ss-text ss-action-primary-text">
-                    {{notification?.message?.actions?.[0].name}}
+                    {{ notification.message.actions[0].name }}
                   </p>
                 </div>
                 <div
                   class="ss-action-outline"
-                  *ngIf="notification?.message?.actions?.[1]"
-                  (click)="handleActionClick($event,notification.n_id,notification?.message?.actions?.[1])"
+                  *ngIf="
+                    notification.message.actions &&
+                    notification.message.actions[1]
+                  "
+                  (click)="
+                    handleActionClick(
+                      $event,
+                      notification.n_id,
+                      notification.message.actions[1]
+                    )
+                  "
                 >
                   <p class="ss-text ss-action-outline-text">
-                    {{notification?.message?.actions?.[1].name}}
+                    {{ notification.message.actions[1].name }}
                   </p>
                 </div>
               </div>

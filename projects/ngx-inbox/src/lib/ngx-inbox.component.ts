@@ -37,7 +37,7 @@ export class SuprSendInboxComponent implements OnDestroy {
 
   // user defined inputs
   @Input() hideToast: boolean = false;
-  @Input() hideInbox: boolean = false;
+  // @Input() hideInbox: boolean = false;
   @Input() collapseToastNotifications: boolean;
   @Input() toaster;
   @Input() toasterConfig;
@@ -113,10 +113,6 @@ export class SuprSendInboxComponent implements OnDestroy {
     }
 
     this.listener = this.renderer.listen('window', 'click', (e: Event) => {
-      e.stopPropagation();
-      // no need to attach listener if inbox is hidden
-      if (this.hideInbox) return;
-
       if (
         !this.ssToggleButton.nativeElement.contains(e.target) &&
         !this.ssPopperMenu.nativeElement.contains(e.target)
