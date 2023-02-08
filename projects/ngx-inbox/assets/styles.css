@@ -122,7 +122,6 @@
   max-height: 400px;
   width: 350px;
   overflow: scroll;
-  display: inline-block;
 }
 
 @media (max-width: 425px) {

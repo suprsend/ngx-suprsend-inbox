@@ -1,14 +1,19 @@
 {
   "name": "ngx-suprsend-inbox",
   "version": "0.0.0",
+  "description": "Suprsend Inbox SDK for Angular Applications",
+  "author": "suprsend",
+  "license": "MIT",
+  "repository": "suprsend/ngx-suprsend-inbox",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build ngx-inbox --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-sdk": "rm -rf ./dist && npm run build"
   },
-  "private": false,
+  "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.0",
     "@angular/common": "~12.0.0",
