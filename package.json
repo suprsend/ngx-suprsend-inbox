@@ -8,9 +8,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build ngx-inbox --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-sdk": "rm -rf ./dist && npm run build"
   },
   "private": true,
   "dependencies": {
