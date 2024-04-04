@@ -1,5 +1,5 @@
 # @suprsend/ngx-inbox
 
-This package can be included in angular applications to easily integrate SuprSend Inbox notifications.
+This package has been deprecated. Please use [@suprsend/web-inbox](https://github.com/suprsend/suprsend-web-inbox)
 
-Refer full documentation [here](https://docs.suprsend.com/docs/inbox-angular)
+Documentation to integrate `@suprsend/web-inbox` in Angular can be found here: [https://docs.suprsend.com/docs/inbox-angular](https://docs.suprsend.com/docs/inbox-angular)
